@@ -75,8 +75,8 @@ h1{font-size:clamp(2rem,6vw,4rem);line-height:1.02;margin:12px 0 14px;letter-spa
 <script>
 /* CẤU HÌNH: điền URL và anon/publishable key từ dự án Supabase của bạn.
    Không bao giờ đặt service_role/secret key trong website. */
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "https://lbsqrwmdpwopgxlbrjcd.supabase.co/rest/v1/";
+const SUPABASE_ANON_KEY = "sb_publishable_dVyq0Sgb6OwVsXo6PSg3tw_TifVEl0p";
 let db = null;
 if (window.supabase && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_")) {
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
