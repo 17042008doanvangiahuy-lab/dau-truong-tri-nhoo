@@ -75,8 +75,8 @@ h1{font-size:clamp(2rem,6vw,4rem);line-height:1.02;margin:12px 0 14px;letter-spa
 <script>
 /* CẤU HÌNH: điền URL và anon/publishable key từ dự án Supabase của bạn.
    Không bao giờ đặt service_role/secret key trong website. */
-const SUPABASE_URL = "https://lbsqrwmdpwopgxlbrjcd.supabase.co/rest/v1/";
-const SUPABASE_ANON_KEY = "sb_publishable_dVyq0Sgb6OwVsXo6PSg3tw_TifVEl0p";
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 let db = null;
 if (window.supabase && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_")) {
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -118,19 +118,40 @@ function beginQuestion(prompt, options, correctAnswer, points=100, type="choice"
     $("options").innerHTML=options.map((o,i)=>`<button class="option" data-i="${i}">${o}</button>`).join("");
   }
   setActions(`<button id="submitAnswer">Trả lời</button>`);
-  let selected=null;
-  if(type!=="text") document.querySelectorAll(".option").forEach(b=>b.onclick=()=>{if(locked)return;selected=Number(b.dataset.i);document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");});
+  let selected=type==="multi"?new Set():null;
+  if(type!=="text") document.querySelectorAll(".option").forEach(b=>b.onclick=()=>{
+    if(locked)return;
+    const i=Number(b.dataset.i);
+    if(type==="multi"){
+      if(selected.has(i)){selected.delete(i);b.classList.remove("selected");}
+      else{selected.add(i);b.classList.add("selected");}
+    }else{
+      selected=i;
+      document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+    }
+  });
   const submit=()=>{
     if(locked)return;
-    let answer=type==="text"?$("typedAnswer").value.trim():selected;
-    if(answer===null||answer===""){toast("Chọn hoặc nhập câu trả lời trước nhé!");return;}
+    let answer=type==="text"?$("typedAnswer").value.trim():(type==="multi"?[...selected].sort((a,b)=>a-b):selected);
+    if(answer===null||answer===""||(Array.isArray(answer)&&answer.length===0)){toast("Chọn hoặc nhập câu trả lời trước nhé!");return;}
     locked=true;
-    const isCorrect=type==="text" ? answer.toLocaleLowerCase("vi")===String(correctAnswer).toLocaleLowerCase("vi") : answer===correctAnswer;
+    const isCorrect=type==="text"
+      ? answer.toLocaleLowerCase("vi")===String(correctAnswer).toLocaleLowerCase("vi")
+      : type==="multi"
+        ? answer.length===correctAnswer.length&&answer.every((v,i)=>v===correctAnswer[i])
+        : answer===correctAnswer;
     const earned=isCorrect?Math.max(40,points-Math.floor((Date.now()-roundStarted)/1000)*3):0;
     score+=earned;if(isCorrect)correct++;roundScores.push({round:round+1,correct:isCorrect,score:earned});
     $("scorePill").textContent=`Điểm: ${score}`;
-    if(type!=="text")document.querySelectorAll(".option").forEach((b,i)=>{b.disabled=true;if(i===correctAnswer)b.classList.add("correct");if(i===answer&&!isCorrect)b.classList.add("wrong");});
-    $("feedback").innerHTML=`<div class="feedback ${isCorrect?"good":"bad"}">${isCorrect?"Chính xác! +"+earned+" điểm.":"Chưa chính xác."} ${type==="text"?"Đáp án: "+escapeHTML(correctAnswer):""}</div>`;
+    if(type!=="text")document.querySelectorAll(".option").forEach((b,i)=>{
+      b.disabled=true;
+      const isAnswer=type==="multi"?correctAnswer.includes(i):i===correctAnswer;
+      const wasSelected=type==="multi"?answer.includes(i):i===answer;
+      if(isAnswer)b.classList.add("correct");
+      if(wasSelected&&!isAnswer)b.classList.add("wrong");
+    });
+    $("feedback").innerHTML=`<div class="feedback ${isCorrect?"good":"bad"}">${isCorrect?"Chính xác! +"+earned+" điểm.":"Chưa chính xác. Hãy chọn đủ tất cả đáp án đúng và không chọn nhầm."} ${type==="text"?"Đáp án: "+escapeHTML(correctAnswer):""}</div>`;
     setActions(`<button id="nextBtn">${round===5?"Xem kết quả":"Sang vòng tiếp theo →"}</button>`);
     $("nextBtn").onclick=()=>{round++;if(round>=6)finishGame();else startRound();};
   };
@@ -140,8 +161,9 @@ function beginQuestion(prompt, options, correctAnswer, points=100, type="choice"
 function startRound(){
   updateHead();
   if(round===0){
-    const shown=pick(EMOJIS,6), choices=shuffle([...shown.slice(0,3),...pick(EMOJIS.filter(x=>!shown.includes(x)),3)]);
-    showMemorize("Hãy ghi nhớ 6 biểu tượng này",shown.join("　"),5,()=>beginQuestion("Biểu tượng nào sau đây đã xuất hiện?",choices,choices.indexOf(shown[1])));
+    const shown=pick(EMOJIS,6), targets=shown.slice(0,3), choices=shuffle([...targets,...pick(EMOJIS.filter(x=>!shown.includes(x)),3)]);
+    const answers=choices.map((x,i)=>targets.includes(x)?i:-1).filter(i=>i>=0).sort((a,b)=>a-b);
+    showMemorize("Hãy ghi nhớ 6 biểu tượng này",shown.join("　"),5,()=>beginQuestion("Những biểu tượng nào sau đây đã xuất hiện? (Chọn tất cả đáp án đúng)",choices,answers,100,"multi"));
   } else if(round===1){
     const seq=String(Math.floor(1+Math.random()*8))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10));
     showMemorize("Ghi nhớ chuỗi số theo đúng thứ tự",seq.split("").join(" "),6,()=>beginQuestion("Hãy nhập lại chuỗi số theo đúng thứ tự.",[],seq,100,"text"));
@@ -154,8 +176,9 @@ function startRound(){
     const padded=seq.map(c=>`<span style="display:inline-block;background:${c.hex};width:36px;height:36px;border-radius:50%;margin:4px;vertical-align:middle"></span>`).join("");
     showMemorize("Ghi nhớ thứ tự màu sắc",padded,5,()=>beginQuestion("Chọn chuỗi màu đúng theo thứ tự đã thấy.",opts,opts.indexOf(target)));
   } else if(round===4){
-    const shown=pick(EMOJIS,8), target=shown[5], choices=shuffle([target,...pick(EMOJIS.filter(x=>!shown.includes(x)),5)]);
-    showMemorize("Quan sát và ghi nhớ các biểu tượng",shown.join("　"),6,()=>beginQuestion("Biểu tượng nào đã xuất hiện?",choices,choices.indexOf(target)));
+    const shown=pick(EMOJIS,8), targets=shown.slice(0,4), choices=shuffle([...targets,...pick(EMOJIS.filter(x=>!shown.includes(x)),4)]);
+    const answers=choices.map((x,i)=>targets.includes(x)?i:-1).filter(i=>i>=0).sort((a,b)=>a-b);
+    showMemorize("Quan sát và ghi nhớ các biểu tượng",shown.join("　"),6,()=>beginQuestion("Những biểu tượng nào sau đây đã xuất hiện? (Chọn tất cả đáp án đúng)",choices,answers,100,"multi"));
   } else {
     const seq=[String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1)];
     const shown=`${seq[0]} → ${seq[1]} → ${seq[2]} → ${seq[3]}`;
