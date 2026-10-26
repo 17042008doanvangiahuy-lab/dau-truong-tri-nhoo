@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17152f">
+<title>Đấu trường trí nhớ</title>
+<style>
+:root{--bg:#100f22;--panel:#1b1936;--panel2:#242148;--text:#f8f7ff;--muted:#b8b5d5;--purple:#9b8cff;--pink:#ff77b7;--green:#71e6b1;--yellow:#ffd76a;--danger:#ff8d9b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#292252 0,#100f22 58%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:0;border-radius:14px;padding:13px 18px;font-weight:800;color:#17132d;background:linear-gradient(120deg,var(--purple),var(--pink));box-shadow:0 7px 22px #0003}button:disabled{opacity:.45;cursor:not-allowed}button.secondary{background:#302c55;color:var(--text);box-shadow:none;border:1px solid #48436f}button.ghost{background:transparent;border:1px solid #4d4779;color:var(--text);box-shadow:none}
+.wrap{max-width:980px;margin:auto;padding:22px 16px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}.brand{font-weight:900;letter-spacing:.2px}.brand span{color:var(--purple)}.pill{border:1px solid #49436f;border-radius:999px;padding:7px 11px;color:var(--muted);font-size:.85rem}
+h1{font-size:clamp(2rem,6vw,4rem);line-height:1.02;margin:12px 0 14px;letter-spacing:-1.7px}h2{font-size:1.5rem;margin:0 0 12px}p{color:var(--muted);line-height:1.6}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}.card{background:linear-gradient(145deg,#211e42ee,#17152fee);border:1px solid #45406d;border-radius:24px;padding:24px;box-shadow:0 20px 60px #0002}.hero .card:first-child{padding:clamp(22px,4vw,40px)}.eyebrow{color:var(--green);font-weight:900;text-transform:uppercase;font-size:.78rem;letter-spacing:1.5px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.feature{background:#ffffff08;border:1px solid #ffffff12;border-radius:16px;padding:13px}.feature b{display:block;margin-bottom:4px}.feature small{color:var(--muted);line-height:1.4}.field{display:flex;flex-direction:column;gap:7px;margin:14px 0}.field label{font-size:.9rem;color:var(--muted);font-weight:700}.field input{width:100%;padding:14px 15px;border-radius:13px;background:#111027;border:1px solid #514b7d;color:white;outline:none}.field input:focus{border-color:var(--purple)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.hidden{display:none!important}.gamehead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:15px}.progress{height:8px;background:#343052;border-radius:20px;overflow:hidden;margin:12px 0 22px}.progress div{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));width:0;transition:width .3s}.question{font-size:clamp(1.3rem,3vw,2rem);font-weight:900;line-height:1.25;margin:15px 0}.muted{color:var(--muted)}.center{text-align:center}.bigdisplay{font-size:clamp(2.3rem,8vw,4.5rem);font-weight:950;letter-spacing:4px;margin:25px 0;word-break:break-word}.emoji-grid,.option-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}.emoji-tile,.option{background:#29264c;border:1px solid #4d4778;border-radius:17px;min-height:76px;display:flex;align-items:center;justify-content:center;font-size:2.3rem}.option{font-size:1rem;color:var(--text);padding:14px;min-height:60px;line-height:1.3}.option.selected{border-color:var(--green);background:#17483d}.option.correct{border-color:var(--green);background:#17483d}.option.wrong{border-color:var(--danger);background:#512b45}.answer-input{max-width:460px;margin:20px auto}.answer-input input{text-align:center;font-size:1.25rem;letter-spacing:2px}.feedback{padding:12px 15px;border-radius:12px;margin:14px 0;background:#ffffff0b;color:var(--muted)}.feedback.good{color:var(--green)}.feedback.bad{color:var(--yellow)}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.stat{background:#ffffff09;border:1px solid #ffffff12;border-radius:16px;padding:16px;text-align:center}.stat strong{display:block;font-size:1.8rem}.stat span{color:var(--muted);font-size:.85rem}.leader-row{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:12px;border-bottom:1px solid #ffffff12}.rank{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#38335f;font-weight:900}.leader-row:first-child .rank{background:var(--yellow);color:#241b36}.leader-name{font-weight:800;overflow-wrap:anywhere}.score{font-weight:900;color:var(--green)}.small{font-size:.85rem}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}.qrbox{display:flex;align-items:center;justify-content:center;min-height:190px;background:white;border-radius:16px;padding:12px;margin:14px auto;max-width:220px}.qrbox img{max-width:100%}.note{font-size:.82rem;color:var(--muted);margin-top:18px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#f8f7ff;color:#1a1630;padding:12px 18px;border-radius:12px;font-weight:800;box-shadow:0 8px 30px #0005;z-index:5}.spinner{display:inline-block;animation:pulse 1s infinite alternate}@keyframes pulse{to{opacity:.35}}
+@media(max-width:720px){.hero,.two-col{grid-template-columns:1fr}.features{grid-template-columns:1fr}.card{padding:18px}.emoji-grid,.option-grid{gap:7px}.emoji-tile{min-height:65px}.top{align-items:flex-start}.pill{white-space:nowrap}.statgrid{gap:6px}.stat{padding:12px 5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div class="brand">🧠 <span>ĐẤU TRƯỜNG</span> TRÍ NHỚ</div><div class="pill">6 vòng thử thách</div></header>
+  <main id="home">
+    <section class="hero">
+      <div class="card">
+        <div class="eyebrow">Thử thách não bộ của bạn</div>
+        <h1>Nhớ nhanh.<br><span style="color:var(--purple)">Chơi vui.</span><br>Vượt giới hạn.</h1>
+        <p>Tham gia 6 thử thách trí nhớ về hình ảnh, con số, từ ngữ và trình tự. Không cần tải ứng dụng.</p>
+        <div class="field"><label for="nickname">Biệt danh của bạn</label><input id="nickname" maxlength="24" autocomplete="nickname" placeholder="Ví dụ: SaoBăng27"></div>
+        <div class="actions"><button id="startBtn">Bắt đầu chơi →</button><button id="showBoardBtn" class="secondary">🏆 Bảng xếp hạng</button></div>
+        <p class="note">Mẹo: hãy dùng cùng một biệt danh nếu muốn dễ nhận ra kết quả của mình.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">6 vòng · tăng dần thử thách</div>
+        <div class="features" style="grid-template-columns:1fr">
+          <div class="feature"><b>👀 01 · Hình ảnh</b><small>Quan sát biểu tượng và nhận diện lại.</small></div>
+          <div class="feature"><b>🔢 02 · Con số</b><small>Ghi nhớ chuỗi số trong thời gian ngắn.</small></div>
+          <div class="feature"><b>📝 03 · Từ ngữ</b><small>Nhớ lại những từ vừa xuất hiện.</small></div>
+          <div class="feature"><b>🎨 04 · Màu sắc</b><small>Nhớ thứ tự các màu.</small></div>
+          <div class="feature"><b>🔎 05 · Biểu tượng</b><small>Chọn các hình đã nhìn thấy.</small></div>
+          <div class="feature"><b>🧩 06 · Tổng hợp</b><small>Kết hợp quan sát, thứ tự và ghi nhớ.</small></div>
+        </div>
+      </div>
+    </section>
+    <section class="card" style="margin-top:18px">
+      <div class="two-col">
+        <div><h2>📲 Mời mọi người tham gia</h2><p>Dùng nút sao chép link hoặc tạo mã QR từ địa chỉ website sau khi bạn xuất bản.</p><div class="actions"><button id="copyLinkBtn" class="secondary">Sao chép link game</button><button id="qrToggleBtn" class="ghost">Hiện mã QR</button></div><div id="qrArea" class="hidden center"><div id="qr" class="qrbox"></div><p class="small">Quét mã để mở game trên điện thoại.</p></div></div>
+        <div><h2>🏆 Bảng xếp hạng chung</h2><p>Điểm được lưu trên hệ thống trực tuyến khi bạn cấu hình Supabase. Nếu chưa cấu hình, game vẫn chạy nhưng kết quả chỉ ở trên thiết bị này.</p><div id="homeBoard" class="muted small">Đang kiểm tra bảng xếp hạng…</div></div>
+      </div>
+    </section>
+  </main>
+  <main id="game" class="hidden">
+    <div class="card">
+      <div class="gamehead"><div><div class="eyebrow" id="roundLabel">VÒNG 1/6</div><h2 id="roundTitle">Ghi nhớ hình ảnh</h2></div><div class="pill" id="scorePill">Điểm: 0</div></div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div id="gameContent"></div>
+      <div class="actions" id="gameActions"></div>
+    </div>
+  </main>
+  <main id="results" class="hidden">
+    <section class="card center">
+      <div class="eyebrow">Hoàn thành thử thách</div><h1 style="font-size:clamp(2rem,6vw,3.2rem)">Bạn đã làm được! 🎉</h1>
+      <p id="resultGreeting"></p>
+      <div class="statgrid"><div class="stat"><strong id="finalScore">0</strong><span>Điểm</span></div><div class="stat"><strong id="correctCount">0/6</strong><span>Vòng đạt điểm</span></div><div class="stat"><strong id="elapsed">0s</strong><span>Thời gian</span></div></div>
+      <div id="saveStatus" class="feedback">Đang lưu kết quả…</div>
+      <div class="actions" style="justify-content:center"><button id="retryBtn">Chơi lại</button><button id="resultBoardBtn" class="secondary">Xem bảng xếp hạng</button><button id="homeBtn" class="ghost">Trang chủ</button></div>
+    </section>
+    <section class="card" style="margin-top:18px"><h2>🏆 Bảng xếp hạng</h2><div id="resultBoard" class="muted">Đang tải…</div></section>
+  </main>
+  <main id="leaderboard" class="hidden">
+    <section class="card"><div class="gamehead"><div><div class="eyebrow">Cùng nhau thử sức</div><h1 style="font-size:2.4rem">🏆 Bảng xếp hạng</h1></div><button id="backBtn" class="secondary">← Quay lại</button></div><p>Hiển thị các kết quả cao nhất đã được lưu trên hệ thống.</p><div id="fullBoard">Đang tải…</div><p class="note">Bảng xếp hạng công khai có thể hiển thị biệt danh và điểm của người chơi. Không nhập thông tin cá nhân nhạy cảm.</p></section>
+  </main>
+  <footer class="note center">Đấu trường trí nhớ · Trò chơi giáo dục · Không phải bài kiểm tra chẩn đoán trí nhớ.</footer>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* CẤU HÌNH: điền URL và anon/publishable key từ dự án Supabase của bạn.
+   Không bao giờ đặt service_role/secret key trong website. */
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+let db = null;
+if (window.supabase && SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && !SUPABASE_ANON_KEY.includes("YOUR_")) {
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+const $ = id => document.getElementById(id);
+const views = ["home","game","results","leaderboard"];
+function showView(id){views.forEach(v=>$(v).classList.toggle("hidden",v!==id));window.scrollTo({top:0,behavior:"smooth"});}
+function toast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2400);}
+const shuffle = arr => [...arr].sort(()=>Math.random()-.5);
+const pick = (arr,n) => shuffle(arr).slice(0,n);
+const escapeHTML = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let player="", round=0, score=0, correct=0, startedAt=0, roundStarted=0, roundScores=[], locked=false, current={};
+const EMOJIS=["🐱","🚀","🍉","🎸","🌻","⚽","🦋","🍕","🚲","🐼","🎈","🍓","🌙","🧸","🐢","🍄","🎧","🦊"];
+const WORDS=["đại dương","cây bút","cầu vồng","quyển sách","chiếc lá","ngọn núi","đồng hồ","bông hoa","con thuyền","mặt trăng","cánh cửa","chiếc ô","ngôi sao","tách trà","bàn học","đám mây"];
+const COLORS=[{name:"Đỏ",hex:"#ff626f"},{name:"Xanh dương",hex:"#5ba8ff"},{name:"Vàng",hex:"#ffd65a"},{name:"Tím",hex:"#b58aff"},{name:"Xanh lá",hex:"#66dfad"},{name:"Hồng",hex:"#ff8dc8"}];
+const TITLES=["Ghi nhớ hình ảnh","Thử thách con số","Nhớ từ ngữ","Chuỗi màu sắc","Nhận diện biểu tượng","Thử thách tổng hợp"];
+function setActions(html){$("gameActions").innerHTML=html;}
+function updateHead(){ $("roundLabel").textContent=`VÒNG ${round+1}/6`; $("roundTitle").textContent=TITLES[round]; $("scorePill").textContent=`Điểm: ${score}`; $("progressBar").style.width=`${round/6*100}%`; }
+function startGame(){
+  player=$("nickname").value.trim().slice(0,24);
+  if(!player){$("nickname").focus();toast("Bạn hãy nhập biệt danh trước nhé!");return;}
+  score=0;correct=0;round=0;roundScores=[];startedAt=Date.now();showView("game");startRound();
+}
+function showMemorize(title, content, seconds, onDone){
+  $("gameContent").innerHTML=`<p class="center muted">${title}</p><div class="bigdisplay">${content}</div><div class="feedback center">Hãy ghi nhớ! Còn <b id="countdown">${seconds}</b> giây…</div>`;
+  setActions(`<button class="secondary" id="readyBtn" disabled>Đã ghi nhớ</button>`);
+  let left=seconds;$("countdown").textContent=left;
+  const timer=setInterval(()=>{left--;$("countdown").textContent=left;if(left<=0){clearInterval(timer);onDone();}},1000);
+  $("readyBtn").onclick=()=>{clearInterval(timer);onDone();};
+  $("readyBtn").disabled=true;
+  setTimeout(()=>{const b=$("readyBtn");if(b)b.disabled=false;},Math.min(1500,seconds*500));
+}
+function beginQuestion(prompt, options, correctAnswer, points=100, type="choice"){
+  locked=false;roundStarted=Date.now();
+  $("gameContent").innerHTML=`<div class="question center">${prompt}</div><div id="options" class="${type==="text"?"answer-input":"option-grid"}"></div><div id="feedback"></div>`;
+  if(type==="text"){
+    $("options").innerHTML=`<div class="field"><label for="typedAnswer">Nhập câu trả lời</label><input id="typedAnswer" autocomplete="off" placeholder="Nhập đáp án tại đây"></div>`;
+  } else {
+    $("options").innerHTML=options.map((o,i)=>`<button class="option" data-i="${i}">${o}</button>`).join("");
+  }
+  setActions(`<button id="submitAnswer">Trả lời</button>`);
+  let selected=null;
+  if(type!=="text") document.querySelectorAll(".option").forEach(b=>b.onclick=()=>{if(locked)return;selected=Number(b.dataset.i);document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");});
+  const submit=()=>{
+    if(locked)return;
+    let answer=type==="text"?$("typedAnswer").value.trim():selected;
+    if(answer===null||answer===""){toast("Chọn hoặc nhập câu trả lời trước nhé!");return;}
+    locked=true;
+    const isCorrect=type==="text" ? answer.toLocaleLowerCase("vi")===String(correctAnswer).toLocaleLowerCase("vi") : answer===correctAnswer;
+    const earned=isCorrect?Math.max(40,points-Math.floor((Date.now()-roundStarted)/1000)*3):0;
+    score+=earned;if(isCorrect)correct++;roundScores.push({round:round+1,correct:isCorrect,score:earned});
+    $("scorePill").textContent=`Điểm: ${score}`;
+    if(type!=="text")document.querySelectorAll(".option").forEach((b,i)=>{b.disabled=true;if(i===correctAnswer)b.classList.add("correct");if(i===answer&&!isCorrect)b.classList.add("wrong");});
+    $("feedback").innerHTML=`<div class="feedback ${isCorrect?"good":"bad"}">${isCorrect?"Chính xác! +"+earned+" điểm.":"Chưa chính xác."} ${type==="text"?"Đáp án: "+escapeHTML(correctAnswer):""}</div>`;
+    setActions(`<button id="nextBtn">${round===5?"Xem kết quả":"Sang vòng tiếp theo →"}</button>`);
+    $("nextBtn").onclick=()=>{round++;if(round>=6)finishGame();else startRound();};
+  };
+  $("submitAnswer").onclick=submit;
+  if(type==="text")$("typedAnswer").addEventListener("keydown",e=>{if(e.key==="Enter")submit();});
+}
+function startRound(){
+  updateHead();
+  if(round===0){
+    const shown=pick(EMOJIS,6), choices=shuffle([...shown.slice(0,3),...pick(EMOJIS.filter(x=>!shown.includes(x)),3)]);
+    showMemorize("Hãy ghi nhớ 6 biểu tượng này",shown.join("　"),5,()=>beginQuestion("Biểu tượng nào sau đây đã xuất hiện?",choices,choices.indexOf(shown[1])));
+  } else if(round===1){
+    const seq=String(Math.floor(1+Math.random()*8))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10));
+    showMemorize("Ghi nhớ chuỗi số theo đúng thứ tự",seq.split("").join(" "),6,()=>beginQuestion("Hãy nhập lại chuỗi số theo đúng thứ tự.",[],seq,100,"text"));
+  } else if(round===2){
+    const shown=pick(WORDS,5), target=shown[2], choices=shuffle([target,...pick(WORDS.filter(w=>!shown.includes(w)),3)]);
+    showMemorize("Hãy ghi nhớ 5 từ sau",shown.join("　·　"),7,()=>beginQuestion("Từ nào đã xuất hiện trong danh sách?",choices,choices.indexOf(target)));
+  } else if(round===3){
+    const seq=pick(COLORS,4), target=seq.map(c=>c.name).join("|");
+    const opts=shuffle([target,...Array.from({length:3},()=>pick(COLORS,4).map(c=>c.name).join("|"))].filter((x,i,a)=>a.indexOf(x)===i));
+    const padded=seq.map(c=>`<span style="display:inline-block;background:${c.hex};width:36px;height:36px;border-radius:50%;margin:4px;vertical-align:middle"></span>`).join("");
+    showMemorize("Ghi nhớ thứ tự màu sắc",padded,5,()=>beginQuestion("Chọn chuỗi màu đúng theo thứ tự đã thấy.",opts,opts.indexOf(target)));
+  } else if(round===4){
+    const shown=pick(EMOJIS,8), target=shown[5], choices=shuffle([target,...pick(EMOJIS.filter(x=>!shown.includes(x)),5)]);
+    showMemorize("Quan sát và ghi nhớ các biểu tượng",shown.join("　"),6,()=>beginQuestion("Biểu tượng nào đã xuất hiện?",choices,choices.indexOf(target)));
+  } else {
+    const seq=[String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1)];
+    const shown=`${seq[0]} → ${seq[1]} → ${seq[2]} → ${seq[3]}`;
+    const target=seq[1], opts=shuffle([target,...Array.from({length:3},()=>String(Math.floor(Math.random()*9)+1)).filter(x=>x!==target)]).slice(0,4);
+    showMemorize("Vòng tổng hợp: ghi nhớ dãy số",shown,4,()=>beginQuestion("Số thứ hai trong dãy vừa xem là số nào?",opts,opts.indexOf(target)));
+  }
+}
+async function saveResult(){
+  const seconds=Math.round((Date.now()-startedAt)/1000);
+  const record={nickname:player,score,correct_rounds:correct,total_rounds:6,duration_seconds:seconds};
+  if(db){
+    const {error}=await db.from("memory_scores").insert(record);
+    if(error){$("saveStatus").textContent="Chưa lưu được lên bảng chung. Hãy kiểm tra cấu hình Supabase hoặc kết nối mạng.";return;}
+    $("saveStatus").textContent="Đã lưu kết quả lên bảng xếp hạng chung!";
+  } else {
+    try{
+      const arr=JSON.parse(localStorage.getItem("memory_scores_local")||"[]");arr.push({...record,created_at:new Date().toISOString()});localStorage.setItem("memory_scores_local",JSON.stringify(arr));
+      $("saveStatus").textContent="Đã lưu trên thiết bị này. Muốn bảng điểm chung giữa các thiết bị, hãy cấu hình Supabase theo README.";
+    }catch(e){$("saveStatus").textContent="Không lưu được kết quả trên thiết bị này.";}
+  }
+  await loadBoard($("resultBoard"));
+}
+async function finishGame(){
+  showView("results");$("progressBar").style.width="100%";
+  const seconds=Math.round((Date.now()-startedAt)/1000);
+  $("resultGreeting").textContent=`${player}, bạn đã hoàn thành cả 6 vòng thử thách.`;
+  $("finalScore").textContent=score;$("correctCount").textContent=`${correct}/6`;$("elapsed").textContent=`${seconds}s`;
+  $("saveStatus").textContent="Đang lưu kết quả…";$("resultBoard").textContent="Đang tải…";await saveResult();
+}
+async function loadBoard(container){
+  if(db){
+    const {data,error}=await db.from("memory_scores").select("nickname,score,correct_rounds,duration_seconds,created_at").order("score",{ascending:false}).order("duration_seconds",{ascending:true}).limit(20);
+    if(error){container.innerHTML='<p class="muted">Không tải được bảng điểm. Kiểm tra cấu hình và chính sách Supabase.</p>';return;}
+    renderBoard(container,data||[]);
+  }else{
+    let arr=[];try{arr=JSON.parse(localStorage.getItem("memory_scores_local")||"[]")}catch(e){}
+    arr.sort((a,b)=>b.score-a.score||a.duration_seconds-b.duration_seconds);renderBoard(container,arr.slice(0,20));
+  }
+}
+function renderBoard(container,rows){
+  if(!rows.length){container.innerHTML='<p class="muted">Chưa có kết quả. Hãy là người đầu tiên chơi nhé!</p>';return;}
+  container.innerHTML=rows.map((r,i)=>`<div class="leader-row"><div class="rank">${i+1}</div><div><div class="leader-name">${escapeHTML(r.nickname)}</div><div class="small muted">${r.correct_rounds}/6 vòng đúng · ${r.duration_seconds}s</div></div><div class="score">${r.score} điểm</div></div>`).join("");
+}
+function openBoard(){showView("leaderboard");loadBoard($("fullBoard"));}
+$("startBtn").onclick=startGame;$("showBoardBtn").onclick=openBoard;$("resultBoardBtn").onclick=openBoard;$("backBtn").onclick=()=>showView("home");$("retryBtn").onclick=()=>{ $("nickname").value=player;startGame();};$("homeBtn").onclick=()=>showView("home");
+$("copyLinkBtn").onclick=async()=>{try{await navigator.clipboard.writeText(location.href);toast("Đã sao chép link game!");}catch(e){prompt("Sao chép link game này:",location.href);}};
+$("qrToggleBtn").onclick=()=>{$("qrArea").classList.toggle("hidden");if(!$("qr").hasChildNodes()){if(window.QRCode)new QRCode($("qr"),{text:location.href,width:180,height:180,colorDark:"#17152f",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});else $("qr").textContent="Không tải được công cụ QR. Hãy tạo QR từ URL website.";}}
+async function init(){await loadBoard($("homeBoard"));if(!db){const p=document.createElement("p");p.className="note";p.textContent="Chế độ xem trước: kết quả chỉ lưu trên thiết bị hiện tại cho đến khi kết nối cơ sở dữ liệu."; $("homeBoard").appendChild(p);}}
+init();
+</script>
+</body>
+</html>
