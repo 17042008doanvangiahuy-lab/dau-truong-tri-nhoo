@@ -165,8 +165,8 @@ function startRound(){
     const answers=choices.map((x,i)=>targets.includes(x)?i:-1).filter(i=>i>=0).sort((a,b)=>a-b);
     showMemorize("Hãy ghi nhớ 6 biểu tượng này",shown.join("　"),5,()=>beginQuestion("Những biểu tượng nào sau đây đã xuất hiện? (Chọn tất cả đáp án đúng)",choices,answers,100,"multi"));
   } else if(round===1){
-    const seq=String(Math.floor(1+Math.random()*8))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10))+String(Math.floor(Math.random()*10));
-    showMemorize("Ghi nhớ chuỗi số theo đúng thứ tự",seq.split("").join(" "),6,()=>beginQuestion("Hãy nhập lại chuỗi số theo đúng thứ tự.",[],seq,100,"text"));
+    const seq=Array.from({length:10},(_,i)=>String(i===0?Math.floor(1+Math.random()*9):Math.floor(Math.random()*10))).join("");
+    showMemorize("Ghi nhớ chuỗi số theo đúng thứ tự",seq.split("").join(" "),11,()=>beginQuestion("Hãy nhập lại chuỗi số theo đúng thứ tự.",[],seq,100,"text"));
   } else if(round===2){
     const shown=pick(WORDS,5), target=shown[2], choices=shuffle([target,...pick(WORDS.filter(w=>!shown.includes(w)),3)]);
     showMemorize("Hãy ghi nhớ 5 từ sau",shown.join("　·　"),7,()=>beginQuestion("Từ nào đã xuất hiện trong danh sách?",choices,choices.indexOf(target)));
