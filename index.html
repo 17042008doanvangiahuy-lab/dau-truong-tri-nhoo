@@ -16,19 +16,19 @@ h1{font-size:clamp(2rem,6vw,4rem);line-height:1.02;margin:12px 0 14px;letter-spa
 </head>
 <body>
 <div class="wrap">
-  <header class="top"><div class="brand">🧠 <span>ĐẤU TRƯỜNG</span> TRÍ NHỚ</div><div class="pill">6 vòng thử thách</div></header>
+  <header class="top"><div class="brand">🧠 <span>ĐẤU TRƯỜNG</span> TRÍ NHỚ</div><div class="pill">10 vòng thử thách</div></header>
   <main id="home">
     <section class="hero">
       <div class="card">
         <div class="eyebrow">Thử thách não bộ của bạn</div>
         <h1>Nhớ nhanh.<br><span style="color:var(--purple)">Chơi vui.</span><br>Vượt giới hạn.</h1>
-        <p>Tham gia 6 thử thách trí nhớ về hình ảnh, con số, từ ngữ và trình tự. Không cần tải ứng dụng.</p>
+        <p>Tham gia 10 thử thách trí nhớ về hình ảnh, con số, từ ngữ và trình tự. Không cần tải ứng dụng.</p>
         <div class="field"><label for="nickname">Biệt danh của bạn</label><input id="nickname" maxlength="24" autocomplete="nickname" placeholder="Ví dụ: SaoBăng27"></div>
         <div class="actions"><button id="startBtn">Bắt đầu chơi →</button><button id="showBoardBtn" class="secondary">🏆 Bảng xếp hạng</button></div>
         <p class="note">Mẹo: hãy dùng cùng một biệt danh nếu muốn dễ nhận ra kết quả của mình.</p>
       </div>
       <div class="card">
-        <div class="eyebrow">6 vòng · tăng dần thử thách</div>
+        <div class="eyebrow">10 vòng · tăng dần thử thách</div>
         <div class="features" style="grid-template-columns:1fr">
           <div class="feature"><b>👀 01 · Hình ảnh</b><small>Quan sát biểu tượng và nhận diện lại.</small></div>
           <div class="feature"><b>🔢 02 · Con số</b><small>Ghi nhớ chuỗi số trong thời gian ngắn.</small></div>
@@ -48,7 +48,7 @@ h1{font-size:clamp(2rem,6vw,4rem);line-height:1.02;margin:12px 0 14px;letter-spa
   </main>
   <main id="game" class="hidden">
     <div class="card">
-      <div class="gamehead"><div><div class="eyebrow" id="roundLabel">VÒNG 1/6</div><h2 id="roundTitle">Ghi nhớ hình ảnh</h2></div><div class="pill" id="scorePill">Điểm: 0</div></div>
+      <div class="gamehead"><div><div class="eyebrow" id="roundLabel">VÒNG 1/10</div><h2 id="roundTitle">Ghi nhớ hình ảnh</h2></div><div class="pill" id="scorePill">Điểm: 0</div></div>
       <div class="progress"><div id="progressBar"></div></div>
       <div id="gameContent"></div>
       <div class="actions" id="gameActions"></div>
@@ -58,7 +58,7 @@ h1{font-size:clamp(2rem,6vw,4rem);line-height:1.02;margin:12px 0 14px;letter-spa
     <section class="card center">
       <div class="eyebrow">Hoàn thành thử thách</div><h1 style="font-size:clamp(2rem,6vw,3.2rem)">Bạn đã làm được! 🎉</h1>
       <p id="resultGreeting"></p>
-      <div class="statgrid"><div class="stat"><strong id="finalScore">0</strong><span>Điểm</span></div><div class="stat"><strong id="correctCount">0/6</strong><span>Vòng đạt điểm</span></div><div class="stat"><strong id="elapsed">0s</strong><span>Thời gian</span></div></div>
+      <div class="statgrid"><div class="stat"><strong id="finalScore">0</strong><span>Điểm</span></div><div class="stat"><strong id="correctCount">0/10</strong><span>Vòng đạt điểm</span></div><div class="stat"><strong id="elapsed">0s</strong><span>Thời gian</span></div></div>
       <div id="saveStatus" class="feedback">Đang lưu kết quả…</div>
       <div class="actions" style="justify-content:center"><button id="retryBtn">Chơi lại</button><button id="resultBoardBtn" class="secondary">Xem bảng xếp hạng</button><button id="homeBtn" class="ghost">Trang chủ</button></div>
     </section>
@@ -92,9 +92,9 @@ let player="", round=0, score=0, correct=0, startedAt=0, roundStarted=0, roundSc
 const EMOJIS=["🐱","🚀","🍉","🎸","🌻","⚽","🦋","🍕","🚲","🐼","🎈","🍓","🌙","🧸","🐢","🍄","🎧","🦊"];
 const WORDS=["đại dương","cây bút","cầu vồng","quyển sách","chiếc lá","ngọn núi","đồng hồ","bông hoa","con thuyền","mặt trăng","cánh cửa","chiếc ô","ngôi sao","tách trà","bàn học","đám mây"];
 const COLORS=[{name:"Đỏ",hex:"#ff626f"},{name:"Xanh dương",hex:"#5ba8ff"},{name:"Vàng",hex:"#ffd65a"},{name:"Tím",hex:"#b58aff"},{name:"Xanh lá",hex:"#66dfad"},{name:"Hồng",hex:"#ff8dc8"}];
-const TITLES=["Ghi nhớ hình ảnh","Thử thách con số","Nhớ từ ngữ","Chuỗi màu sắc","Nhận diện biểu tượng","Thử thách tổng hợp"];
+const TITLES=["Ghi nhớ hình ảnh","Thử thách con số","Nhớ từ ngữ","Chuỗi màu sắc","Nhận diện biểu tượng","Thử thách tổng hợp","Hình ảnh nâng cao","Ghi nhớ từ","Chuỗi màu nâng cao","Thử thách số cuối cùng"];
 function setActions(html){$("gameActions").innerHTML=html;}
-function updateHead(){ $("roundLabel").textContent=`VÒNG ${round+1}/6`; $("roundTitle").textContent=TITLES[round]; $("scorePill").textContent=`Điểm: ${score}`; $("progressBar").style.width=`${round/6*100}%`; }
+function updateHead(){ $("roundLabel").textContent=`VÒNG ${round+1}/10`; $("roundTitle").textContent=TITLES[round]; $("scorePill").textContent=`Điểm: ${score}`; $("progressBar").style.width=`${round/10*100}%`; }
 function startGame(){
   player=$("nickname").value.trim().slice(0,24);
   if(!player){$("nickname").focus();toast("Bạn hãy nhập biệt danh trước nhé!");return;}
@@ -152,8 +152,8 @@ function beginQuestion(prompt, options, correctAnswer, points=100, type="choice"
       if(wasSelected&&!isAnswer)b.classList.add("wrong");
     });
     $("feedback").innerHTML=`<div class="feedback ${isCorrect?"good":"bad"}">${isCorrect?"Chính xác! +"+earned+" điểm.":"Chưa chính xác. Hãy chọn đủ tất cả đáp án đúng và không chọn nhầm."} ${type==="text"?"Đáp án: "+escapeHTML(correctAnswer):""}</div>`;
-    setActions(`<button id="nextBtn">${round===5?"Xem kết quả":"Sang vòng tiếp theo →"}</button>`);
-    $("nextBtn").onclick=()=>{round++;if(round>=6)finishGame();else startRound();};
+    setActions(`<button id="nextBtn">${round===9?"Xem kết quả":"Sang vòng tiếp theo →"}</button>`);
+    $("nextBtn").onclick=()=>{round++;if(round>=10)finishGame();else startRound();};
   };
   $("submitAnswer").onclick=submit;
   if(type==="text")$("typedAnswer").addEventListener("keydown",e=>{if(e.key==="Enter")submit();});
@@ -179,16 +179,34 @@ function startRound(){
     const shown=pick(EMOJIS,8), targets=shown.slice(0,4), choices=shuffle([...targets,...pick(EMOJIS.filter(x=>!shown.includes(x)),4)]);
     const answers=choices.map((x,i)=>targets.includes(x)?i:-1).filter(i=>i>=0).sort((a,b)=>a-b);
     showMemorize("Quan sát và ghi nhớ các biểu tượng",shown.join("　"),6,()=>beginQuestion("Những biểu tượng nào sau đây đã xuất hiện? (Chọn tất cả đáp án đúng)",choices,answers,100,"multi"));
-  } else {
-    const seq=[String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1),String(Math.floor(Math.random()*9)+1)];
-    const shown=`${seq[0]} → ${seq[1]} → ${seq[2]} → ${seq[3]}`;
-    const target=seq[1], opts=shuffle([target,...Array.from({length:3},()=>String(Math.floor(Math.random()*9)+1)).filter(x=>x!==target)]).slice(0,4);
+  } else if(round===5){
+    const seq=Array.from({length:4},()=>String(Math.floor(Math.random()*9)+1));
+    const shown=seq.join(" → ");
+    const target=seq[1], opts=shuffle([target,...pick(Array.from({length:9},(_,i)=>String(i+1)).filter(x=>x!==target),3)]);
     showMemorize("Vòng tổng hợp: ghi nhớ dãy số",shown,4,()=>beginQuestion("Số thứ hai trong dãy vừa xem là số nào?",opts,opts.indexOf(target)));
+  } else if(round===6){
+    const shown=pick(EMOJIS,10), targets=shown.slice(0,5), choices=shuffle([...targets,...pick(EMOJIS.filter(x=>!shown.includes(x)),4)]);
+    const answers=choices.map((x,i)=>targets.includes(x)?i:-1).filter(i=>i>=0).sort((a,b)=>a-b);
+    showMemorize("Vòng 7: ghi nhớ 10 biểu tượng",shown.join("　"),7,()=>beginQuestion("Những biểu tượng nào đã xuất hiện? (Chọn tất cả đáp án đúng)",choices,answers,100,"multi"));
+  } else if(round===7){
+    const shown=pick(WORDS,6), target=shown[4], choices=shuffle([target,...pick(WORDS.filter(w=>!shown.includes(w)),3)]);
+    showMemorize("Vòng 8: ghi nhớ 6 từ",shown.join("　·　"),7,()=>beginQuestion("Từ nào đã xuất hiện trong danh sách?",choices,choices.indexOf(target)));
+  } else if(round===8){
+    const seq=pick(COLORS,5), target=seq.map(c=>c.name).join("|");
+    const alternatives=[];
+    while(alternatives.length<3){const candidate=pick(COLORS,5).map(c=>c.name).join("|");if(candidate!==target&&!alternatives.includes(candidate))alternatives.push(candidate);}
+    const opts=shuffle([target,...alternatives]);
+    const padded=seq.map(c=>`<span style="display:inline-block;background:${c.hex};width:34px;height:34px;border-radius:50%;margin:4px;vertical-align:middle"></span>`).join("");
+    showMemorize("Vòng 9: ghi nhớ thứ tự 5 màu",padded,5,()=>beginQuestion("Chọn chuỗi màu đúng theo thứ tự đã thấy.",opts,opts.indexOf(target)));
+  } else {
+    const seq=Array.from({length:6},(_,i)=>String(i===0?Math.floor(1+Math.random()*9):Math.floor(Math.random()*10))).join("");
+    const answer=seq.split("").reverse().join("");
+    showMemorize("Vòng 10: ghi nhớ chuỗi 6 số",seq.split("").join(" "),6,()=>beginQuestion("Nhập lại chuỗi số theo thứ tự ngược lại.",[],answer,100,"text"));
   }
 }
 async function saveResult(){
   const seconds=Math.round((Date.now()-startedAt)/1000);
-  const record={nickname:player,score,correct_rounds:correct,total_rounds:6,duration_seconds:seconds};
+  const record={nickname:player,score,correct_rounds:correct,total_rounds:10,duration_seconds:seconds};
   if(db){
     const {error}=await db.from("memory_scores").insert(record);
     if(error){$("saveStatus").textContent="Chưa lưu được lên bảng chung. Hãy kiểm tra cấu hình Supabase hoặc kết nối mạng.";return;}
@@ -204,13 +222,13 @@ async function saveResult(){
 async function finishGame(){
   showView("results");$("progressBar").style.width="100%";
   const seconds=Math.round((Date.now()-startedAt)/1000);
-  $("resultGreeting").textContent=`${player}, bạn đã hoàn thành cả 6 vòng thử thách.`;
-  $("finalScore").textContent=score;$("correctCount").textContent=`${correct}/6`;$("elapsed").textContent=`${seconds}s`;
+  $("resultGreeting").textContent=`${player}, bạn đã hoàn thành cả 10 vòng thử thách.`;
+  $("finalScore").textContent=score;$("correctCount").textContent=`${correct}/10`;$("elapsed").textContent=`${seconds}s`;
   $("saveStatus").textContent="Đang lưu kết quả…";$("resultBoard").textContent="Đang tải…";await saveResult();
 }
 async function loadBoard(container){
   if(db){
-    const {data,error}=await db.from("memory_scores").select("nickname,score,correct_rounds,duration_seconds,created_at").order("score",{ascending:false}).order("duration_seconds",{ascending:true}).limit(20);
+    const {data,error}=await db.from("memory_scores").select("nickname,score,correct_rounds,total_rounds,duration_seconds,created_at").order("score",{ascending:false}).order("duration_seconds",{ascending:true}).limit(20);
     if(error){container.innerHTML='<p class="muted">Không tải được bảng điểm. Kiểm tra cấu hình và chính sách Supabase.</p>';return;}
     renderBoard(container,data||[]);
   }else{
@@ -220,7 +238,7 @@ async function loadBoard(container){
 }
 function renderBoard(container,rows){
   if(!rows.length){container.innerHTML='<p class="muted">Chưa có kết quả. Hãy là người đầu tiên chơi nhé!</p>';return;}
-  container.innerHTML=rows.map((r,i)=>`<div class="leader-row"><div class="rank">${i+1}</div><div><div class="leader-name">${escapeHTML(r.nickname)}</div><div class="small muted">${r.correct_rounds}/6 vòng đúng · ${r.duration_seconds}s</div></div><div class="score">${r.score} điểm</div></div>`).join("");
+  container.innerHTML=rows.map((r,i)=>`<div class="leader-row"><div class="rank">${i+1}</div><div><div class="leader-name">${escapeHTML(r.nickname)}</div><div class="small muted">${r.correct_rounds}/${r.total_rounds || 6} vòng đúng · ${r.duration_seconds}s</div></div><div class="score">${r.score} điểm</div></div>`).join("");
 }
 function openBoard(){showView("leaderboard");loadBoard($("fullBoard"));}
 $("startBtn").onclick=startGame;$("showBoardBtn").onclick=openBoard;$("resultBoardBtn").onclick=openBoard;$("backBtn").onclick=()=>showView("home");$("retryBtn").onclick=()=>{ $("nickname").value=player;startGame();};$("homeBtn").onclick=()=>showView("home");
